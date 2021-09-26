@@ -18,6 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let loginViewModel = LoginViewModel(loginManager: loginManager)
                 loginVC.loginViewModel = loginViewModel
             }
+            RechabilityManager.shared.startNotify()
         }
     }
     
