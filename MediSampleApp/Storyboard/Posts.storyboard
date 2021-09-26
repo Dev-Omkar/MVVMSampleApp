@@ -39,6 +39,10 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Mxe-dP-cxl">
                                 <rect key="frame" x="0.0" y="100" width="414" height="713"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="5Nx-8m-g4L" id="MNX-eE-9Rs"/>
+                                    <outlet property="delegate" destination="5Nx-8m-g4L" id="Ikc-NK-kf3"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="4Je-4a-cb7"/>
@@ -54,6 +58,9 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" systemItem="downloads" id="zS3-Ec-3aQ"/>
+                    <connections>
+                        <outlet property="tableView" destination="Mxe-dP-cxl" id="8sm-Om-d9l"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YaE-9u-sC1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
