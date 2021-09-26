@@ -7,11 +7,11 @@
 
 import Foundation
 class RepositoryManager {
-    static var sharedInstance = ApiManager.init()
+    static var sharedInstance = ApiService.init()
     func getPosts(completion:@escaping (Result<[PostModel], URLError>) -> Void) {
         let rechability = RechabilityManager.shared
         if rechability.isReachable{
-            ApiManager.sharedInstance.getPosts() { response in
+            ApiService.sharedInstance.getPosts() { response in
                 completion(response)
             }
         }else{

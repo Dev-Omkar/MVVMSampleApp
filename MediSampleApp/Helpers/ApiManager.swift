@@ -6,8 +6,8 @@
 //
 
 import Foundation
-class ApiManager{
-    static var sharedInstance = ApiManager.init()
+class ApiService{
+    static var sharedInstance = ApiService.init()
     func getPosts(completion:@escaping (Result<[PostModel], URLError>)-> Void){
         let request = APIRequest(method: .get, path: "posts")
         APIClient().perform(request) { (result) in
