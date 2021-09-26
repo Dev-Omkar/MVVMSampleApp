@@ -12,10 +12,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     
     private func setupRootViewController(){
-        if let loginVC = self.window?.rootViewController as? LoginViewController {
+        if let navigationVc = self.window?.rootViewController as? UINavigationController {
+            if let loginVC = navigationVc.viewControllers.last as? LoginViewController{
             let loginManager = LoginApiService()
             let loginViewModel = LoginViewModel(loginManager: loginManager)
-            loginVC.loginViewModel = loginViewModel
+                loginVC.loginViewModel = loginViewModel
+            }
         }
     }
     

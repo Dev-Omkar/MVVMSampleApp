@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9dC-fQ-yFw">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
@@ -67,23 +67,53 @@
                             <constraint firstItem="1Z2-uN-vv6" firstAttribute="leading" secondItem="EUu-2L-ZSQ" secondAttribute="leading" constant="10" id="x2q-Y4-BsP"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="IXm-Gz-dZm"/>
                     <connections>
                         <outlet property="emailTextField" destination="Zuq-24-Q2Z" id="gDj-Dh-LOj"/>
                         <outlet property="passwordTextField" destination="vYH-aP-0Qy" id="7oP-Cf-EoB"/>
                         <outlet property="submitButton" destination="1Z2-uN-vv6" id="lXx-iP-dON"/>
+                        <segue destination="Asl-xC-wvn" kind="show" identifier="postTabSegue" id="59l-HM-yTh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="20" y="70"/>
+            <point key="canvasLocation" x="853.125" y="76.056338028169009"/>
+        </scene>
+        <!--Posts-->
+        <scene sceneID="XSe-DT-vSO">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Posts" id="Asl-xC-wvn" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="pWN-5p-TG5"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="H7d-tL-FYH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1766.25" y="36.971830985915496"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="asn-bD-wRq">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9dC-fQ-yFw" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" hidden="YES" contentMode="scaleToFill" id="GRl-tb-LK7">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="8aB-AZ-yau"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="scF-la-NAc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-144.375" y="76.056338028169009"/>
         </scene>
     </scenes>
     <resources>
         <namedColor name="BackgroundColor">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.83700001239776611" green="0.83700001239776611" blue="0.83700001239776611" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="ThemeColor">
-            <color red="0.45138680930000002" green="0.99309605359999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.45100000500679016" green="0.99299997091293335" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
