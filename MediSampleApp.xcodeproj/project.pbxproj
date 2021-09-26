@@ -14,6 +14,8 @@
 		781FFE1227007BF700E4A935 /* LoginViewController+TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781FFE1127007BF700E4A935 /* LoginViewController+TextField.swift */; };
 		781FFE1527007D1400E4A935 /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781FFE1427007D1400E4A935 /* LoginModel.swift */; };
 		781FFE1E2700918600E4A935 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781FFE1D2700918600E4A935 /* Extension.swift */; };
+		781FFE212700A19B00E4A935 /* Posts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 781FFE202700A19B00E4A935 /* Posts.storyboard */; };
+		781FFE272700A28200E4A935 /* PostsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781FFE262700A28200E4A935 /* PostsListViewController.swift */; };
 		78D3F5EA2700576000171FE8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D3F5E92700576000171FE8 /* AppDelegate.swift */; };
 		78D3F5EC2700576000171FE8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D3F5EB2700576000171FE8 /* SceneDelegate.swift */; };
 		78D3F5EE2700576000171FE8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D3F5ED2700576000171FE8 /* LoginViewController.swift */; };
@@ -30,6 +32,8 @@
 		781FFE1127007BF700E4A935 /* LoginViewController+TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoginViewController+TextField.swift"; sourceTree = "<group>"; };
 		781FFE1427007D1400E4A935 /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
 		781FFE1D2700918600E4A935 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		781FFE202700A19B00E4A935 /* Posts.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Posts.storyboard; sourceTree = "<group>"; };
+		781FFE262700A28200E4A935 /* PostsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsListViewController.swift; sourceTree = "<group>"; };
 		78D3F5E62700576000171FE8 /* MediSampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MediSampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		78D3F5E92700576000171FE8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		78D3F5EB2700576000171FE8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -64,6 +68,7 @@
 			children = (
 				78D3F5ED2700576000171FE8 /* LoginViewController.swift */,
 				781FFE1127007BF700E4A935 /* LoginViewController+TextField.swift */,
+				781FFE262700A28200E4A935 /* PostsListViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -81,6 +86,7 @@
 			children = (
 				78D3F5EF2700576000171FE8 /* Main.storyboard */,
 				78D3F5F42700576700171FE8 /* LaunchScreen.storyboard */,
+				781FFE202700A19B00E4A935 /* Posts.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -194,6 +200,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				78D3F5F62700576700171FE8 /* LaunchScreen.storyboard in Resources */,
+				781FFE212700A19B00E4A935 /* Posts.storyboard in Resources */,
 				781FFDFE2700726900E4A935 /* Colors.xcassets in Resources */,
 				78D3F5F32700576700171FE8 /* Assets.xcassets in Resources */,
 				78D3F5F12700576000171FE8 /* Main.storyboard in Resources */,
@@ -214,6 +221,7 @@
 				781FFE05270079C600E4A935 /* LoginViewModel.swift in Sources */,
 				78D3F5EC2700576000171FE8 /* SceneDelegate.swift in Sources */,
 				781FFE1527007D1400E4A935 /* LoginModel.swift in Sources */,
+				781FFE272700A28200E4A935 /* PostsListViewController.swift in Sources */,
 				781FFE1227007BF700E4A935 /* LoginViewController+TextField.swift in Sources */,
 				781FFE0827007A6700E4A935 /* LoginManager.swift in Sources */,
 			);
