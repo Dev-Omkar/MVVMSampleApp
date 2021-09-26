@@ -7,19 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		781FFDFE2700726900E4A935 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 781FFDFD2700726900E4A935 /* Colors.xcassets */; };
 		78D3F5EA2700576000171FE8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D3F5E92700576000171FE8 /* AppDelegate.swift */; };
 		78D3F5EC2700576000171FE8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D3F5EB2700576000171FE8 /* SceneDelegate.swift */; };
-		78D3F5EE2700576000171FE8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D3F5ED2700576000171FE8 /* ViewController.swift */; };
+		78D3F5EE2700576000171FE8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D3F5ED2700576000171FE8 /* LoginViewController.swift */; };
 		78D3F5F12700576000171FE8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78D3F5EF2700576000171FE8 /* Main.storyboard */; };
 		78D3F5F32700576700171FE8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78D3F5F22700576700171FE8 /* Assets.xcassets */; };
 		78D3F5F62700576700171FE8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78D3F5F42700576700171FE8 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		781FFDFD2700726900E4A935 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		78D3F5E62700576000171FE8 /* MediSampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MediSampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		78D3F5E92700576000171FE8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		78D3F5EB2700576000171FE8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		78D3F5ED2700576000171FE8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		78D3F5ED2700576000171FE8 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		78D3F5F02700576000171FE8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		78D3F5F22700576700171FE8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		78D3F5F52700576700171FE8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -58,11 +60,12 @@
 			children = (
 				78D3F5E92700576000171FE8 /* AppDelegate.swift */,
 				78D3F5EB2700576000171FE8 /* SceneDelegate.swift */,
-				78D3F5ED2700576000171FE8 /* ViewController.swift */,
+				78D3F5ED2700576000171FE8 /* LoginViewController.swift */,
 				78D3F5EF2700576000171FE8 /* Main.storyboard */,
 				78D3F5F22700576700171FE8 /* Assets.xcassets */,
 				78D3F5F42700576700171FE8 /* LaunchScreen.storyboard */,
 				78D3F5F72700576700171FE8 /* Info.plist */,
+				781FFDFD2700726900E4A935 /* Colors.xcassets */,
 			);
 			path = MediSampleApp;
 			sourceTree = "<group>";
@@ -125,6 +128,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				78D3F5F62700576700171FE8 /* LaunchScreen.storyboard in Resources */,
+				781FFDFE2700726900E4A935 /* Colors.xcassets in Resources */,
 				78D3F5F32700576700171FE8 /* Assets.xcassets in Resources */,
 				78D3F5F12700576000171FE8 /* Main.storyboard in Resources */,
 			);
@@ -137,7 +141,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				78D3F5EE2700576000171FE8 /* ViewController.swift in Sources */,
+				78D3F5EE2700576000171FE8 /* LoginViewController.swift in Sources */,
 				78D3F5EA2700576000171FE8 /* AppDelegate.swift in Sources */,
 				78D3F5EC2700576000171FE8 /* SceneDelegate.swift in Sources */,
 			);
