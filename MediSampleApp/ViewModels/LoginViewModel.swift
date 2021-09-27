@@ -10,14 +10,10 @@ class LoginViewModel {
     
     private var email = ""
     private var password = ""
-    private let loginManager: ApiService
-    
+     
     var isValidCredentials: Observable<Bool> = Observable(false)
-    
-    init(loginManager: ApiService) {
-        self.loginManager = loginManager
-    }
-    
+    var userMessage: Observable<String> = Observable("")
+     
     //MARK:-  Helpers
     func clearData(){
         email = ""
@@ -33,7 +29,7 @@ class LoginViewModel {
     
     //MARK:-  Action Method
     func performLogin(completion:@escaping (Result<LoginResponseModel, ApiError>)-> Void){
-        loginManager.postLogin(email:email,password:password) { (response) in
+        ApiService.sharedInstance.postLogin(email:email,password:password) { (response) in
             completion(response)
         }
     }
@@ -42,31 +38,36 @@ class LoginViewModel {
     func getCredentialStatus() -> (LoginStatus,String) {
         if email.isEmpty && password.isEmpty {
             isValidCredentials.value = false
-            return (.invalid,"Email and password required.")
+            userMessage.value = "Email and password is required."
+            return (.invalid,userMessage.value)
         }
         
         if email.isEmpty {
             isValidCredentials.value = false
-            return (.invalid,"Email is required.")
+            userMessage.value = "Email is required."
+            return (.invalid,userMessage.value)
+        }
+        if !validEmail(inputEmail: email) {
+            isValidCredentials.value = false
+            userMessage.value = "Invalid email."
+            return (.invalid, userMessage.value)
         }
         
         if password.isEmpty {
             isValidCredentials.value = false
-            return (.invalid, "Password is required.")
-        }
-        
-        if !validEmail(inputEmail: email) {
-            isValidCredentials.value = false
-            return (.invalid, "Invalid email id.")
+            userMessage.value = "Password is required."
+            return (.invalid,userMessage.value)
         }
         
         if !validPasswordLength(password: password) {
             isValidCredentials.value =  false
-            return (.invalid, "Password should be atleast 8 and max 15.")
+            userMessage.value = "Password should be atleast 8 and max 15 characters."
+            return (.invalid, userMessage.value)
         }
         
         isValidCredentials.value = true
         let status = LoginStatus.init(rawValue: isValidCredentials.value.intValue) ?? .invalid
+        userMessage.value = ""
         return (status, "Success")
     }
     

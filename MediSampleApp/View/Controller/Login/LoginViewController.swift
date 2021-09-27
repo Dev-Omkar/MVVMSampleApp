@@ -13,6 +13,7 @@ class LoginViewController: UIViewController {
     var loginViewModel: LoginViewModel!
     
     //MARK: - Outlets
+    @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var submitButton: UIButton!
@@ -21,24 +22,27 @@ class LoginViewController: UIViewController {
     @IBAction func loginAction(_ sender: UIButton) {
         self.view.endEditing(true)
         loginViewModel.performLogin {  [weak self] (response) in
-            switch(response){
-            case .success(let responseModel):
-                if responseModel.success{
-                    SessionData.email = responseModel.data.email
-                    SessionData.password = responseModel.data.password
-                    SessionData.isUserLoggedIn = true
-                    self?.performSegue(withIdentifier: "postTabSegue", sender: self)
-                }else{
-                    if let currentSelf = self{
-                    AlertHelper.showAlert(title: "Alert", message: responseModel.message, over:  currentSelf)
+            DispatchQueue.main.async {
+                switch(response){
+                case .success(let responseModel):
+                    if responseModel.success{
+                        SessionData.email = responseModel.data.email
+                        SessionData.password = responseModel.data.password
+                        SessionData.isUserLoggedIn = true
+                        self?.performSegue(withIdentifier: "postTabSegue", sender: self)
+                        
+                    }else{
+                        if let currentSelf = self{
+                            AlertHelper.showAlert(title: "Alert", message: responseModel.message, over:  currentSelf)
+                        }
                     }
+                    break
+                case .failure(let error):
+                    if let currentSelf = self{
+                        AlertHelper.showAlert(title: "Alert", message: error.localizedDescription, over:  currentSelf)
+                    }
+                    break
                 }
-                break
-            case .failure(let error):
-                if let currentSelf = self{
-                    AlertHelper.showAlert(title: "Alert", message: error.localizedDescription, over:  currentSelf)
-                }
-                break
             }
         }
         
@@ -50,6 +54,7 @@ class LoginViewController: UIViewController {
     //MARK: - ViewController Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.statusLabel.text  = ""
         if SessionData.isUserLoggedIn{
             self.performSegue(withIdentifier: "postTabSegue", sender: self)
         }else{
@@ -69,12 +74,21 @@ class LoginViewController: UIViewController {
     }
     //MARK: - Helper Methods
     func listenForValidCredentials(){
+        loginViewModel.userMessage.bind{  [weak self] message in
+            if message.isEmpty{
+                self?.statusLabel.text  = ""
+            }else{
+                self?.statusLabel.text  = "Note: \(message)"
+            }
+        }
         loginViewModel.isValidCredentials.bind { [weak self] validCredentials in
            
             if validCredentials{
-                self?.submitButton.alpha = 1;
+                self?.submitButton.backgroundColor = UIColor.init(named: "ThemeColor")
+                self?.submitButton.setTitleColor(UIColor.black, for: .normal)
             }else{
-                self?.submitButton.alpha = 0.5;
+                self?.submitButton.backgroundColor = .lightGray
+                self?.submitButton.setTitleColor(UIColor.darkGray, for: .normal)
             }
             self?.submitButton.isEnabled = validCredentials
         }

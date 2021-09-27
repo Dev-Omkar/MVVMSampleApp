@@ -19,8 +19,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let _ = (scene as? UIWindowScene) else { return }
         if let navigationVc = self.window?.rootViewController as? UINavigationController {
             if let loginVC = navigationVc.viewControllers.last as? LoginViewController{
-            let loginManager = ApiService()
-            let loginViewModel = LoginViewModel(loginManager: loginManager)
+                 
+                let loginViewModel = LoginViewModel()
                 loginVC.loginViewModel = loginViewModel
             }
             RechabilityManager.shared.startNotify()

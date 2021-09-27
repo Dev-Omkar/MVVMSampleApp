@@ -11,7 +11,7 @@ import Foundation
 
 class PostListViewModel : NSObject {
     
-    private var apiService : ApiService!
+    
     private(set) var originalData  : [PostDataModel]!
     private(set) var postDataList : [PostDataModel]! {
         didSet {
@@ -24,11 +24,11 @@ class PostListViewModel : NSObject {
      
     override init() {
         super.init()
-        self.apiService =  ApiService()
+        
         
     }
     func performLogout(completion:@escaping (Result<LogoutResponseModel, ApiError>)-> Void){
-        apiService.postLogout { (response) in
+        ApiService.sharedInstance.postLogout { (response) in
             SessionData.email = ""
             SessionData.password = ""
             SessionData.isUserLoggedIn = false

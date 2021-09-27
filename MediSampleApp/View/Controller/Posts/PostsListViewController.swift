@@ -19,8 +19,13 @@ class PostListViewController: UIViewController {
         self.searchBar.delegate = self
         self.employeeTableView.tableFooterView = UIView.init()
         self.postViewModel =  PostListViewModel()
-        postViewModel.callFuncToGetpostDataList()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.getData()
+        }
         callToViewModelForUIUpdate() 
+    }
+    func getData(){
+        postViewModel.callFuncToGetpostDataList()
     }
     override func viewDidAppear(_ animated: Bool) {
         postViewModel.reloadFromDb()
@@ -63,7 +68,9 @@ class PostListViewController: UIViewController {
         self.employeeTableView.delegate = self
         
         self.postViewModel.bindEmployeeViewModelToController = {
-            self.updateDataSource()
+            DispatchQueue.main.async {
+                self.updateDataSource()
+            }
         } 
     }
     
@@ -75,13 +82,10 @@ class PostListViewController: UIViewController {
                 cell.favImage.setImage(UIImage.init(named: "like"), for: .normal)
             }else{
                 cell.favImage.setImage(UIImage.init(named: "dislike"), for: .normal)
-            } 
+            }
         })
-        
-        DispatchQueue.main.async {
-            self.employeeTableView.dataSource = self.dataSource
-            self.employeeTableView.reloadData()
-        }
+       self.employeeTableView.dataSource = self.dataSource
+       self.employeeTableView.reloadData()
     }
 }
 

@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="EUu-2L-ZSQ">
-                                <rect key="frame" x="40" y="203" width="240" height="78"/>
+                                <rect key="frame" x="40" y="193" width="240" height="78"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Zuq-24-Q2Z">
                                         <rect key="frame" x="10" y="0.0" width="220" height="34"/>
@@ -45,7 +45,7 @@
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Z2-uN-vv6">
-                                <rect key="frame" x="50" y="306" width="220" height="35"/>
+                                <rect key="frame" x="50" y="296" width="220" height="35"/>
                                 <color key="backgroundColor" systemColor="systemYellowColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="q8b-OR-299"/>
@@ -59,21 +59,30 @@
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="8tX-ii-g2S">
-                                <rect key="frame" x="110" y="53" width="100" height="100"/>
+                                <rect key="frame" x="110" y="43" width="100" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="GHU-R9-YXH"/>
                                     <constraint firstAttribute="height" constant="100" id="res-Qx-XCk"/>
                                 </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Note:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XLD-0B-Xt6">
+                                <rect key="frame" x="50" y="339" width="220" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="0.8862745098" green="0.064496456470000005" blue="0.01330402049" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="BackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="XLD-0B-Xt6" firstAttribute="trailing" secondItem="1Z2-uN-vv6" secondAttribute="trailing" id="46f-yk-QsG"/>
                             <constraint firstItem="EUu-2L-ZSQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="D5z-kB-Bva"/>
                             <constraint firstItem="Zuq-24-Q2Z" firstAttribute="top" secondItem="8tX-ii-g2S" secondAttribute="bottom" constant="50" id="JcX-L8-Wde"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="EUu-2L-ZSQ" secondAttribute="trailing" constant="40" id="LYK-gz-7hg"/>
                             <constraint firstItem="1Z2-uN-vv6" firstAttribute="top" secondItem="EUu-2L-ZSQ" secondAttribute="bottom" constant="25" id="QVM-It-Bf8"/>
-                            <constraint firstItem="EUu-2L-ZSQ" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-20" id="mmk-mA-jLK"/>
+                            <constraint firstItem="XLD-0B-Xt6" firstAttribute="top" secondItem="1Z2-uN-vv6" secondAttribute="bottom" constant="8" symbolic="YES" id="RSN-da-IIf"/>
+                            <constraint firstItem="XLD-0B-Xt6" firstAttribute="leading" secondItem="1Z2-uN-vv6" secondAttribute="leading" id="bGr-Ac-RNn"/>
+                            <constraint firstItem="EUu-2L-ZSQ" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-30" id="mmk-mA-jLK"/>
                             <constraint firstItem="1Z2-uN-vv6" firstAttribute="trailing" secondItem="EUu-2L-ZSQ" secondAttribute="trailing" constant="-10" id="rbG-Ck-83C"/>
                             <constraint firstItem="8tX-ii-g2S" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="us9-eI-agu"/>
                             <constraint firstItem="1Z2-uN-vv6" firstAttribute="leading" secondItem="EUu-2L-ZSQ" secondAttribute="leading" constant="10" id="x2q-Y4-BsP"/>
@@ -83,6 +92,7 @@
                     <connections>
                         <outlet property="emailTextField" destination="Zuq-24-Q2Z" id="gDj-Dh-LOj"/>
                         <outlet property="passwordTextField" destination="vYH-aP-0Qy" id="7oP-Cf-EoB"/>
+                        <outlet property="statusLabel" destination="XLD-0B-Xt6" id="hSv-8f-VLL"/>
                         <outlet property="submitButton" destination="1Z2-uN-vv6" id="lXx-iP-dON"/>
                         <segue destination="Asl-xC-wvn" kind="show" identifier="postTabSegue" id="59l-HM-yTh"/>
                     </connections>
