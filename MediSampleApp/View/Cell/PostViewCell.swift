@@ -10,8 +10,8 @@ import UIKit
 class PostViewCell: UITableViewCell {
     @IBOutlet weak var titleTextLabel: UILabel!
     @IBOutlet weak var bodyTextLabel: UILabel!
-    
     @IBOutlet weak var favImage: UIButton!
+    
     var employee : PostModel? {
         didSet {
             titleTextLabel.text = employee?.title

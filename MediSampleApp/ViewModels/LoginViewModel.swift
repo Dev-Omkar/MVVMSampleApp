@@ -10,21 +10,35 @@ class LoginViewModel {
     
     private var email = ""
     private var password = ""
+    private let loginManager: ApiService
     
-    private let loginManager: LoginApiService
-     
     var isValidCredentials: Observable<Bool> = Observable(false)
     
-    init(loginManager: LoginApiService) {
+    init(loginManager: ApiService) {
         self.loginManager = loginManager
     }
     
+    //MARK:-  Helpers
+    func clearData(){
+        email = ""
+        password = ""
+        isValidCredentials.value = false
+    }
     func updatePassword(passString:String){
         password = passString
     }
     func updateEmail(emailString:String){
         email = emailString
     }
+    
+    //MARK:-  Action Method
+    func performLogin(completion:@escaping (Result<LoginResponseModel, ApiError>)-> Void){
+        loginManager.postLogin(email:email,password:password) { (response) in
+            completion(response)
+        }
+    }
+    
+    
     func getCredentialStatus() -> (LoginStatus,String) {
         if email.isEmpty && password.isEmpty {
             isValidCredentials.value = false
@@ -56,9 +70,9 @@ class LoginViewModel {
         return (status, "Success")
     }
     
-    
+    //MARK:-  Validation Helpers
     private func validEmail(inputEmail:String) -> Bool {
-        let emailFormat = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$"
+        let emailFormat = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         let predicate = NSPredicate(format:"SELF MATCHES %@", emailFormat)
         return predicate.evaluate(with: inputEmail)
         

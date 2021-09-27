@@ -6,43 +6,14 @@
 //
 import UIKit
 
-class PostListViewController: UIViewController,UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        postViewModel.filter(seachValue: searchText)
-    }
+class PostListViewController: UIViewController {
     
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        postViewModel.filter(seachValue: searchBar.text ?? "")
-        searchBar.resignFirstResponder()
-    }
     @IBOutlet weak var searchBar: UISearchBar!
-    
-    @IBAction func logoutAction(_ sender: Any) { 
-        postViewModel.performLogout { [weak self] (response) in
-            switch(response){
-            case .success(let responseModel):
-                if responseModel.success{
-                    self?.navigationController?.popToRootViewController(animated: true)
-                }else{
-                    if let currentSelf = self{
-                    AlertHelper.showAlert(title: "Alert", message: responseModel.message, over:  currentSelf)
-                    }
-                }
-                break
-            case .failure(let error):
-                if let currentSelf = self{
-                    AlertHelper.showAlert(title: "Alert", message:error.localizedDescription, over:  currentSelf)
-                }
-                break
-            }
-        }
-    }
     @IBOutlet weak var employeeTableView: UITableView!
-    
     private var postViewModel : PostListViewModel!
-    
     private var dataSource : EmployeeTableViewDataSource<PostViewCell,PostDataModel>!
     
+    //MARK:- View method
     override func viewDidLoad() {
         super.viewDidLoad()
         self.searchBar.delegate = self
@@ -54,6 +25,29 @@ class PostListViewController: UIViewController,UISearchBarDelegate {
     override func viewDidAppear(_ animated: Bool) {
         postViewModel.reloadFromDb()
     }
+    
+    //MARK:- Actions method
+    @IBAction func logoutAction(_ sender: Any) {
+        postViewModel.performLogout { [weak self] (response) in
+            switch(response){
+            case .success(let responseModel):
+                if responseModel.success{
+                    self?.navigationController?.popToRootViewController(animated: true)
+                }else{
+                    if let currentSelf = self{
+                        AlertHelper.showAlert(title: "Alert", message: responseModel.message, over:  currentSelf)
+                    }
+                }
+                break
+            case .failure(let error):
+                if let currentSelf = self{
+                    AlertHelper.showAlert(title: "Alert", message:error.localizedDescription, over:  currentSelf)
+                }
+                break
+            }
+        }
+    }
+    //MARK:- Helpers
     func callToViewModelForUIUpdate(){
         employeeTableView.keyboardDismissMode = .onDrag
         self.postViewModel.isLoading.bind(){ value in
@@ -70,12 +64,10 @@ class PostListViewController: UIViewController,UISearchBarDelegate {
         
         self.postViewModel.bindEmployeeViewModelToController = {
             self.updateDataSource()
-        }
-        
+        } 
     }
     
     func updateDataSource(){
-        
         self.dataSource = EmployeeTableViewDataSource(cellIdentifier: "PostViewCell", items: self.postViewModel.postDataList, configureCell: { (cell, evm) in
             cell.titleTextLabel.text = evm.title
             cell.bodyTextLabel.text = evm.body
@@ -91,41 +83,26 @@ class PostListViewController: UIViewController,UISearchBarDelegate {
             self.employeeTableView.reloadData()
         }
     }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
-    }
-    
 }
 
 extension PostListViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.postViewModel.addToFavourite(indexNumber: indexPath.row)
     }
+} 
+
+extension PostListViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        postViewModel.filter(seachValue: searchText)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        postViewModel.filter(seachValue: searchBar.text ?? "")
+        searchBar.resignFirstResponder()
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
 }
 
-class EmployeeTableViewDataSource<Cell :PostViewCell,ViewModel> : NSObject, UITableViewDataSource {
-    
-    private var cellIdentifier :String!
-    private var items :[ViewModel]!
-    var configureCell :(Cell,ViewModel) -> ()
-    
-    init(cellIdentifier :String, items :[ViewModel], configureCell: @escaping (Cell,ViewModel) -> ()) {
-        self.cellIdentifier = cellIdentifier
-        self.items = items
-        self.configureCell = configureCell
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.items.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier, for: indexPath) as! Cell
-        let item = self.items[indexPath.row]
-        self.configureCell(cell,item)
-        return cell
-    }
-    
-    
-}
+

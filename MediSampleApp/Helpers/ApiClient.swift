@@ -7,57 +7,62 @@
 
 import Foundation
 
-enum HTTPMethod: String {
+
+enum ApiEndpoint: String {
+    case posts = "posts" 
+}
+
+enum HttpMethod: String {
     case get = "GET"
     case post = "POST"
 }
 
 
-class APIRequest {
-    let method: HTTPMethod
+class ApiRequest {
+    let method: HttpMethod
     let path: String
     
-    init(method: HTTPMethod, path: String) {
+    init(method: HttpMethod, path: String) {
         self.method = method
         self.path = path
     }
 }
 
-struct APIResponse<Body> {
+struct ApiResponse<Body> {
     let statusCode: Int
     let body: Body
 }
 
-extension APIResponse where Body == Data? {
-    func decode<BodyType: Decodable>(to type: BodyType.Type) throws -> APIResponse<BodyType> {
+extension ApiResponse where Body == Data? {
+    func decode<BodyType: Decodable>(to type: BodyType.Type) throws -> ApiResponse<BodyType> {
         guard let data = body else {
-            throw APIError.decodingFailure
+            throw ApiError.decodingFailure
         }
         let decodedJSON = try JSONDecoder().decode(BodyType.self, from: data)
-        return APIResponse<BodyType>(statusCode: self.statusCode,
+        return ApiResponse<BodyType>(statusCode: self.statusCode,
                                      body: decodedJSON)
     }
 }
 
-enum APIError: Error {
+enum ApiError: Error {
     case invalidURL
     case requestFailed
     case decodingFailure
 }
 
-enum APIResult<Body> {
-    case success(APIResponse<Body>)
-    case failure(APIError)
+enum ApiResult<Body> {
+    case success(ApiResponse<Body>)
+    case failure(ApiError)
 }
 
-struct APIClient {
+struct ApiClient {
     
-    typealias APIClientCompletion = (APIResult<Data?>) -> Void
+    typealias APICompletion = (ApiResult<Data?>) -> Void
     
     private let session = URLSession.shared
     private let baseURL = URL(string: AppConfig.serverUrl)!
     
-    func perform(_ request: APIRequest, _ completion: @escaping APIClientCompletion) {
+    func perform(_ request: ApiRequest, _ completion: @escaping APICompletion) {
         
         var urlComponents = URLComponents()
         urlComponents.scheme = baseURL.scheme
@@ -74,7 +79,7 @@ struct APIClient {
             guard let httpResponse = response as? HTTPURLResponse else {
                 completion(.failure(.requestFailed)); return
             }
-            completion(.success(APIResponse<Data?>(statusCode: httpResponse.statusCode, body: data)))
+            completion(.success(ApiResponse<Data?>(statusCode: httpResponse.statusCode, body: data)))
         }
         task.resume()
     }

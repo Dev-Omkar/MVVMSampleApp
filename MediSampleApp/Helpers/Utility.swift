@@ -14,3 +14,12 @@ struct AppConfig{
         }
     }
 }
+
+import UIKit
+class AlertHelper {
+    static func showAlert(title: String?, message: String?, over viewController: UIViewController) {
+        let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Done", style: .default, handler: nil))
+        viewController.present(ac, animated: true)
+    }
+}

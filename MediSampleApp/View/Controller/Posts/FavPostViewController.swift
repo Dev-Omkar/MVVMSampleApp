@@ -4,24 +4,34 @@
 //
 //  Created by MacStar on 27/09/21.
 //
- 
+
 import UIKit
- 
-class FavListViewController: UIViewController,UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        postViewModel.filter(seachValue: searchText)
-     }
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        postViewModel.filter(seachValue: searchBar.text ?? "")
-        searchBar.resignFirstResponder()
-    }
+
+class FavListViewController: UIViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var employeeTableView: UITableView!
+    private var postViewModel : PostListViewModel!
+    private var dataSource : EmployeeTableViewDataSource<PostViewCell,PostDataModel>!
+    
+    //MARK:- View methods
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.searchBar.delegate = self
+        self.employeeTableView.tableFooterView = UIView.init()
+        callToViewModelForUIUpdate()
+        
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        postViewModel.loadDataFromDB() 
+    }
+    
+    //MARK:- Actions
     @IBAction func logoutAction(_ sender: Any) {
         postViewModel.performLogout { [weak self] (response) in
             switch(response){
             case .success(let responseModel):
-                if responseModel.success{ 
+                if responseModel.success{
                     self?.navigationController?.popToRootViewController(animated: true)
                 }else{
                     if let currentSelf = self{
@@ -39,23 +49,7 @@ class FavListViewController: UIViewController,UISearchBarDelegate {
         
     }
     
-    @IBOutlet weak var employeeTableView: UITableView!
-    
-    private var postViewModel : PostListViewModel!
-    
-    private var dataSource : EmployeeTableViewDataSource<PostViewCell,PostDataModel>!
-     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.searchBar.delegate = self
-        self.employeeTableView.tableFooterView = UIView.init()
-        callToViewModelForUIUpdate()
-      
-    }
-    override func viewDidAppear(_ animated: Bool) {
-        postViewModel.loadDataFromDB() 
-    }
-    
+    //MARK:- Helpers
     func callToViewModelForUIUpdate(){
         employeeTableView.keyboardDismissMode = .onDrag
         self.postViewModel =  PostListViewModel()
@@ -64,11 +58,10 @@ class FavListViewController: UIViewController,UISearchBarDelegate {
         self.postViewModel.bindEmployeeViewModelToController = {
             self.updateDataSource()
         }
-         
+        
     }
     
     func updateDataSource(){
-        
         self.dataSource = EmployeeTableViewDataSource(cellIdentifier: "PostViewCell", items: self.postViewModel.postDataList, configureCell: { (cell, evm) in
             cell.titleTextLabel.text = evm.title
             cell.bodyTextLabel.text = evm.body
@@ -84,11 +77,6 @@ class FavListViewController: UIViewController,UISearchBarDelegate {
             self.employeeTableView.reloadData()
         }
     }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
-    }
-    
 }
 
 extension FavListViewController: UITableViewDelegate{
@@ -98,4 +86,17 @@ extension FavListViewController: UITableViewDelegate{
     }
 }
 
- 
+
+
+extension FavListViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        postViewModel.filter(seachValue: searchText)
+    }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        postViewModel.filter(seachValue: searchBar.text ?? "")
+        searchBar.resignFirstResponder()
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+}

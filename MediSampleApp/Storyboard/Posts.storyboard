@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="l3U-NQ-SKL">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
@@ -9,23 +8,23 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Fav Post View Controller-->
+        <!--Fav List View Controller-->
         <scene sceneID="XmW-I2-Vid">
             <objects>
-                <viewController id="5ro-KL-yfY" customClass="FavPostViewController" customModule="MediSampleApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="5ro-KL-yfY" customClass="FavListViewController" customModule="MediSampleApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="szs-Bo-2UK">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jnM-wp-Tl7">
-                                <rect key="frame" x="0.0" y="144" width="414" height="669"/>
+                                <rect key="frame" x="0.0" y="100" width="600" height="451"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="vse-cc-Zv8">
-                                <rect key="frame" x="0.0" y="44" width="414" height="100"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
                                 <subviews>
                                     <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nHU-uj-f6c">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                         <items>
                                             <barButtonItem id="hVX-JP-0XE"/>
                                             <barButtonItem style="plain" systemItem="flexibleSpace" id="lPx-zt-2nU"/>
@@ -46,7 +45,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </toolbar>
                                     <searchBar contentMode="redraw" placeholder="Search Post title" translatesAutoresizingMaskIntoConstraints="NO" id="gUH-sp-b89">
-                                        <rect key="frame" x="0.0" y="44" width="414" height="56"/>
+                                        <rect key="frame" x="0.0" y="44" width="600" height="56"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
                                 </subviews>
@@ -77,16 +76,16 @@
         <!--Posts-->
         <scene sceneID="MSr-xi-a56">
             <objects>
-                <viewController id="5Nx-8m-g4L" customClass="PostsListViewController" customModule="MediSampleApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="5Nx-8m-g4L" customClass="PostListViewController" customModule="MediSampleApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QVh-yF-e1E">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="EiM-IP-OLJ">
-                                <rect key="frame" x="0.0" y="44" width="414" height="100"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
                                 <subviews>
                                     <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o19-5U-Y9a">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                         <items>
                                             <barButtonItem id="jh3-hZ-INZ"/>
                                             <barButtonItem style="plain" systemItem="flexibleSpace" id="4ro-z6-5za"/>
@@ -107,13 +106,13 @@
                                         </userDefinedRuntimeAttributes>
                                     </toolbar>
                                     <searchBar contentMode="redraw" placeholder="Search Post title" translatesAutoresizingMaskIntoConstraints="NO" id="vBU-IZ-c4e">
-                                        <rect key="frame" x="0.0" y="44" width="414" height="56"/>
+                                        <rect key="frame" x="0.0" y="44" width="600" height="56"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
                                 </subviews>
                             </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Mxe-dP-cxl">
-                                <rect key="frame" x="0.0" y="144" width="414" height="669"/>
+                                <rect key="frame" x="0.0" y="100" width="600" height="451"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>

@@ -11,11 +11,11 @@ class DatabaseManager {
     public static let shared = DatabaseManager()
     let entityName = "Post"
     
-    func insertData(postModel:PostDataModel){
+    func insertPost(postModel:PostDataModel){
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let managedContext = appDelegate.persistentContainer.viewContext
-        guard let userEntity = NSEntityDescription.entity(forEntityName: entityName, in: managedContext) else { return  }
-        let user = NSManagedObject(entity: userEntity, insertInto: managedContext)
+        guard let entity = NSEntityDescription.entity(forEntityName: entityName, in: managedContext) else { return  }
+        let user = NSManagedObject(entity: entity, insertInto: managedContext)
         user.setValue(postModel.id.stringValue, forKeyPath: "id")
         user.setValue(postModel.title, forKey: "title")
         user.setValue(postModel.body, forKey: "body")
@@ -46,7 +46,7 @@ class DatabaseManager {
         }
     }
     
-    func retrieveData() -> [PostDataModel] {
+    func getPostsData() -> [PostDataModel] {
         var postModels : [PostDataModel] = [PostDataModel]()
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return postModels}
         let managedContext = appDelegate.persistentContainer.viewContext
@@ -71,7 +71,7 @@ class DatabaseManager {
     }
     
     
-    func retrieveFavData() -> [PostDataModel] {
+    func getFavPostsData() -> [PostDataModel] {
         var postModels : [PostDataModel] = [PostDataModel]()
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return postModels}
         let managedContext = appDelegate.persistentContainer.viewContext
@@ -120,7 +120,9 @@ class DatabaseManager {
         }
         return nil
     }
-    func updateFavourite(isFav: Bool,id:Int) {
+    
+    
+    func updatePostFavStatus(isFav: Bool,id:Int) {
         let value = isFav.intValue.stringValue
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -131,8 +133,7 @@ class DatabaseManager {
         
         do {
             let results = try context.fetch(fetchRequest) as? [NSManagedObject]
-            if results?.count != 0 { // Atleast one was returned 
-                // In my case, I only updated the first item in results
+            if results?.count != 0 { 
                 results?[0].setValue(value, forKey: "isFavourite")
             }
         } catch {

@@ -7,33 +7,36 @@
 
 import Foundation
 class ApiService{
+    
     static var sharedInstance = ApiService.init()
+    
     func postLogin(email:String,
                    password:String,
-                   completion:@escaping (Result<LoginResponseModel, URLError>)-> Void){
+                   completion:@escaping (Result<LoginResponseModel, ApiError>)-> Void){
         var model  = LoginResponseModel.init()
         model.data = LoginModel.init(email:email,password:password)
         completion(.success(model))
     }
-    func postLogout(completion:@escaping (Result<LogoutResponseModel, URLError>)-> Void){
+    
+    func postLogout(completion:@escaping (Result<LogoutResponseModel, ApiError>)-> Void){
         var model  = LogoutResponseModel.init()
         model.data = LoginModel.init(email:"",password:"")
         completion(.success(model))
     }
-    func getPosts(completion:@escaping (Result<[PostModel], URLError>)-> Void){
-        let request = APIRequest(method: .get, path: "posts")
-        APIClient().perform(request) { (result) in
+    
+    func getPosts(completion:@escaping (Result<[PostModel], ApiError>)-> Void){
+        let request = ApiRequest(method: .get, path: ApiEndpoint.posts.rawValue)
+        ApiClient().perform(request) { (result) in
             switch result {
             case .success(let response):
                 if let response = try? response.decode(to: [PostModel].self) {
                     let posts = response.body
-                    completion(.success(posts)) 
-                    print("Received posts: \(posts.count )")
+                    completion(.success(posts))  
                 } else {
-                    print("Failed to decode response")
+                    completion(.failure(ApiError.decodingFailure))
                 }
-            case .failure:
-                print("Error perform network request")
+            case .failure(let error):
+                completion(.failure(error))
             }
         }
     }
