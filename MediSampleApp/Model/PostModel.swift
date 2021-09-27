@@ -12,7 +12,18 @@ struct PostModel: Decodable {
     var id: Int = 0
     var title: String = ""
     var body: String = ""
-    
+   // var isFavourite: Bool = false
+    init() {
+        
+    }
+}
+
+struct PostDataModel{
+    var userId: Int = 0
+    var id: Int = 0
+    var title: String = ""
+    var body: String = ""
+   var isFavourite: Bool = false
     init() {
         
     }

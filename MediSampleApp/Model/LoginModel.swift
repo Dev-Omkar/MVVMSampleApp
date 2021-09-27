@@ -11,6 +11,14 @@ struct LoginModel {
     var email: String = ""
     var password: String = ""
 }
+struct LoginResponseModel {
+    var success: Bool = true
+    var data: LoginModel = LoginModel.init()
+}
+struct LogoutResponseModel {
+    var success: Bool = true
+    var data: LoginModel = LoginModel.init()
+}
 enum LoginStatus: Int {
     case valid = 1
     case invalid = 0
