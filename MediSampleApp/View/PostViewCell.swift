@@ -11,6 +11,7 @@ class PostViewCell: UITableViewCell {
     @IBOutlet weak var titleTextLabel: UILabel!
     @IBOutlet weak var bodyTextLabel: UILabel!
     
+    @IBOutlet weak var favImage: UIButton!
     var employee : PostModel? {
         didSet {
             titleTextLabel.text = employee?.title
@@ -24,8 +25,7 @@ class PostViewCell: UITableViewCell {
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
+        super.setSelected(selected, animated: animated) 
         // Configure the view for the selected state
     }
     
