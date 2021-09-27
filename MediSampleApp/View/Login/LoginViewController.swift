@@ -19,22 +19,38 @@ class LoginViewController: UIViewController {
     
     //MARK: - IBActions
     @IBAction func loginAction(_ sender: UIButton) {
-        /* let (status,message) = loginViewModel.getCredentialStatus()
-         if status == .valid{
-         
-         }else{
-         print(message)
-         }*/
-       // performSegue(withIdentifier: "postTabSegue", sender: self)
+        self.view.endEditing(true)
+        loginViewModel.performLogin {  [weak self] (response) in
+            switch(response){
+            case .success(let responseModel):
+                if responseModel.success{
+                    SessionData.email = responseModel.data.email
+                    SessionData.password = responseModel.data.password
+                    SessionData.isUserLoggedIn = true
+                    self?.performSegue(withIdentifier: "postTabSegue", sender: self)
+                }else{
+                    //show message
+                }
+                break
+            case .failure(let _):
+                //show message
+                break
+            }
+        }
+        
     }
+    
     private func goToFeeds(){
         
     }
     //MARK: - ViewController Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-       listenForValidCredentials()
-       performSegue(withIdentifier: "postTabSegue", sender: self)
+        if SessionData.isUserLoggedIn{
+            self.performSegue(withIdentifier: "postTabSegue", sender: self)
+        }else{
+            listenForValidCredentials()
+        }
     }
     
     //MARK: - Helper Methods
