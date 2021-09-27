@@ -1,11 +1,11 @@
 //
-//  DevConfig.xcconfig
+//  ReleaseConfig.xcconfig
 //  MediSampleApp
 //
-//  Created by MacStar on 26/09/21.
+//  Created by MacStar on 27/09/21.
 //
 
 // Configuration settings file format documentation can be found at:
 // https://help.apple.com/xcode/#/dev745c5c974
 
-URL = https:$(SLASH)/jsonplaceholder.typicode.com/ 
+URL = https:$(SLASH)/jsonplaceholder.typicode.com/
