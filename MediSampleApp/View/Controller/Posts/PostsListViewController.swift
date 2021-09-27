@@ -6,36 +6,40 @@
 //
 import UIKit
 
-class PostsListViewController: UIViewController,UISearchBarDelegate {
+class PostListViewController: UIViewController,UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        employeeViewModel.filter(seachValue: searchText)
+        postViewModel.filter(seachValue: searchText)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        employeeViewModel.filter(seachValue: searchBar.text ?? "")
+        postViewModel.filter(seachValue: searchBar.text ?? "")
         searchBar.resignFirstResponder()
     }
     @IBOutlet weak var searchBar: UISearchBar!
     
     @IBAction func logoutAction(_ sender: Any) { 
-        employeeViewModel.performLogout { (response) in
+        postViewModel.performLogout { [weak self] (response) in
             switch(response){
             case .success(let responseModel):
                 if responseModel.success{
-                    self.navigationController?.popToRootViewController(animated: true)
+                    self?.navigationController?.popToRootViewController(animated: true)
                 }else{
-                    //show message
+                    if let currentSelf = self{
+                    AlertHelper.showAlert(title: "Alert", message: responseModel.message, over:  currentSelf)
+                    }
                 }
                 break
-            case .failure(let _):
-                //show message
+            case .failure(let error):
+                if let currentSelf = self{
+                    AlertHelper.showAlert(title: "Alert", message:error.localizedDescription, over:  currentSelf)
+                }
                 break
             }
         }
     }
     @IBOutlet weak var employeeTableView: UITableView!
     
-    private var employeeViewModel : EmployeesViewModel!
+    private var postViewModel : PostListViewModel!
     
     private var dataSource : EmployeeTableViewDataSource<PostViewCell,PostDataModel>!
     
@@ -43,20 +47,28 @@ class PostsListViewController: UIViewController,UISearchBarDelegate {
         super.viewDidLoad()
         self.searchBar.delegate = self
         self.employeeTableView.tableFooterView = UIView.init()
-        self.employeeViewModel =  EmployeesViewModel()
-        employeeViewModel.callFuncToGetEmpData()
+        self.postViewModel =  PostListViewModel()
+        postViewModel.callFuncToGetpostDataList()
         callToViewModelForUIUpdate() 
     }
     override func viewDidAppear(_ animated: Bool) {
-        employeeViewModel.reloadFromDb()
+        postViewModel.reloadFromDb()
     }
     func callToViewModelForUIUpdate(){
         employeeTableView.keyboardDismissMode = .onDrag
-        
+        self.postViewModel.isLoading.bind(){ value in
+            DispatchQueue.main.async {
+                if value{
+                    SwiftLoader.show(title: "Loading...", animated: true)
+                }else{
+                    SwiftLoader.hide()
+                }
+            }  
+        }
         self.employeeTableView.register(UINib(nibName: "PostViewCell", bundle: nil), forCellReuseIdentifier: "PostViewCell")
         self.employeeTableView.delegate = self
         
-        self.employeeViewModel.bindEmployeeViewModelToController = {
+        self.postViewModel.bindEmployeeViewModelToController = {
             self.updateDataSource()
         }
         
@@ -64,7 +76,7 @@ class PostsListViewController: UIViewController,UISearchBarDelegate {
     
     func updateDataSource(){
         
-        self.dataSource = EmployeeTableViewDataSource(cellIdentifier: "PostViewCell", items: self.employeeViewModel.empData, configureCell: { (cell, evm) in
+        self.dataSource = EmployeeTableViewDataSource(cellIdentifier: "PostViewCell", items: self.postViewModel.postDataList, configureCell: { (cell, evm) in
             cell.titleTextLabel.text = evm.title
             cell.bodyTextLabel.text = evm.body
             if evm.isFavourite{
@@ -86,9 +98,9 @@ class PostsListViewController: UIViewController,UISearchBarDelegate {
     
 }
 
-extension PostsListViewController: UITableViewDelegate{
+extension PostListViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.employeeViewModel.addToFavourite(indexNumber: indexPath.row)
+        self.postViewModel.addToFavourite(indexNumber: indexPath.row)
     }
 }
 

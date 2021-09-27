@@ -29,11 +29,15 @@ class LoginViewController: UIViewController {
                     SessionData.isUserLoggedIn = true
                     self?.performSegue(withIdentifier: "postTabSegue", sender: self)
                 }else{
-                    //show message
+                    if let currentSelf = self{
+                    AlertHelper.showAlert(title: "Alert", message: responseModel.message, over:  currentSelf)
+                    }
                 }
                 break
-            case .failure(let _):
-                //show message
+            case .failure(let error):
+                if let currentSelf = self{
+                    AlertHelper.showAlert(title: "Alert", message: error.localizedDescription, over:  currentSelf)
+                }
                 break
             }
         }
@@ -52,11 +56,21 @@ class LoginViewController: UIViewController {
             listenForValidCredentials()
         }
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        clearPreviousInput()
+    }
+    func clearPreviousInput(){
+        self.emailTextField.text = ""
+        self.passwordTextField.text = ""
+        loginViewModel.clearData()
+        if !SessionData.isUserLoggedIn{
+            listenForValidCredentials()
+        }
+    }
     //MARK: - Helper Methods
     func listenForValidCredentials(){
         loginViewModel.isValidCredentials.bind { [weak self] validCredentials in
-            print(validCredentials)
+           
             if validCredentials{
                 self?.submitButton.alpha = 1;
             }else{

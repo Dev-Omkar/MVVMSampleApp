@@ -7,28 +7,32 @@
  
 import UIKit
  
-class FavPostViewController: UIViewController,UISearchBarDelegate {
+class FavListViewController: UIViewController,UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        employeeViewModel.filter(seachValue: searchText)
+        postViewModel.filter(seachValue: searchText)
      }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        employeeViewModel.filter(seachValue: searchBar.text ?? "")
+        postViewModel.filter(seachValue: searchBar.text ?? "")
         searchBar.resignFirstResponder()
     }
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBAction func logoutAction(_ sender: Any) {
-        employeeViewModel.performLogout { (response) in
+        postViewModel.performLogout { [weak self] (response) in
             switch(response){
             case .success(let responseModel):
                 if responseModel.success{ 
-                    self.navigationController?.popToRootViewController(animated: true)
+                    self?.navigationController?.popToRootViewController(animated: true)
                 }else{
-                    //show message
+                    if let currentSelf = self{
+                        AlertHelper.showAlert(title: "Alert", message: responseModel.message, over:  currentSelf)
+                    }
                 }
                 break
-            case .failure(let _):
-                //show message
+            case .failure(let error):
+                if let currentSelf = self{
+                    AlertHelper.showAlert(title: "Alert", message: error.localizedDescription, over:  currentSelf)
+                }
                 break
             }
         }
@@ -37,7 +41,7 @@ class FavPostViewController: UIViewController,UISearchBarDelegate {
     
     @IBOutlet weak var employeeTableView: UITableView!
     
-    private var employeeViewModel : EmployeesViewModel!
+    private var postViewModel : PostListViewModel!
     
     private var dataSource : EmployeeTableViewDataSource<PostViewCell,PostDataModel>!
      
@@ -49,15 +53,15 @@ class FavPostViewController: UIViewController,UISearchBarDelegate {
       
     }
     override func viewDidAppear(_ animated: Bool) {
-        employeeViewModel.loadDataFromDB() 
+        postViewModel.loadDataFromDB() 
     }
     
     func callToViewModelForUIUpdate(){
         employeeTableView.keyboardDismissMode = .onDrag
-        self.employeeViewModel =  EmployeesViewModel()
+        self.postViewModel =  PostListViewModel()
         self.employeeTableView.register(UINib(nibName: "PostViewCell", bundle: nil), forCellReuseIdentifier: "PostViewCell")
         self.employeeTableView.delegate = self 
-        self.employeeViewModel.bindEmployeeViewModelToController = {
+        self.postViewModel.bindEmployeeViewModelToController = {
             self.updateDataSource()
         }
          
@@ -65,7 +69,7 @@ class FavPostViewController: UIViewController,UISearchBarDelegate {
     
     func updateDataSource(){
         
-        self.dataSource = EmployeeTableViewDataSource(cellIdentifier: "PostViewCell", items: self.employeeViewModel.empData, configureCell: { (cell, evm) in
+        self.dataSource = EmployeeTableViewDataSource(cellIdentifier: "PostViewCell", items: self.postViewModel.postDataList, configureCell: { (cell, evm) in
             cell.titleTextLabel.text = evm.title
             cell.bodyTextLabel.text = evm.body
             if evm.isFavourite{
@@ -87,10 +91,10 @@ class FavPostViewController: UIViewController,UISearchBarDelegate {
     
 }
 
-extension FavPostViewController: UITableViewDelegate{
+extension FavListViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.employeeViewModel.addToFavourite(indexNumber: indexPath.row)
-        employeeViewModel.loadDataFromDB()
+        self.postViewModel.addToFavourite(indexNumber: indexPath.row)
+        postViewModel.loadDataFromDB()
     }
 }
 

@@ -11,23 +11,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
     
-    private func setupRootViewController(){
-        if let navigationVc = self.window?.rootViewController as? UINavigationController {
-            if let loginVC = navigationVc.viewControllers.last as? LoginViewController{
-            let loginManager = LoginApiService()
-            let loginViewModel = LoginViewModel(loginManager: loginManager)
-                loginVC.loginViewModel = loginViewModel
-            }
-            RechabilityManager.shared.startNotify()
-        }
-    }
-    
+  
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
-        setupRootViewController()
+        if let navigationVc = self.window?.rootViewController as? UINavigationController {
+            if let loginVC = navigationVc.viewControllers.last as? LoginViewController{
+            let loginManager = ApiService()
+            let loginViewModel = LoginViewModel(loginManager: loginManager)
+                loginVC.loginViewModel = loginViewModel
+            }
+            RechabilityManager.shared.startNotify()
+        }
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {
