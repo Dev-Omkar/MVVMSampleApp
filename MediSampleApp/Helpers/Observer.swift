@@ -6,7 +6,7 @@
 //
 
 import Foundation
-  
+
 class Observable<T> {
     typealias Listener = (T) -> Void
     private var listener: Listener?
@@ -16,11 +16,11 @@ class Observable<T> {
             listener?(value)
         }
     }
-
+    
     init(_ value: T) {
         self.value = value
     }
-
+    
     
     func bind(listener: Listener?) {
         self.listener = listener
