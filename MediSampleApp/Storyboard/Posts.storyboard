@@ -3,28 +3,78 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Fav Post View Controller-->
         <scene sceneID="XmW-I2-Vid">
             <objects>
-                <viewController id="5ro-KL-yfY" sceneMemberID="viewController">
+                <viewController id="5ro-KL-yfY" customClass="FavPostViewController" customModule="MediSampleApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="szs-Bo-2UK">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jnM-wp-Tl7">
+                                <rect key="frame" x="0.0" y="144" width="414" height="669"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="vse-cc-Zv8">
+                                <rect key="frame" x="0.0" y="44" width="414" height="100"/>
+                                <subviews>
+                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nHU-uj-f6c">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                        <items>
+                                            <barButtonItem id="hVX-JP-0XE"/>
+                                            <barButtonItem style="plain" systemItem="flexibleSpace" id="lPx-zt-2nU"/>
+                                            <barButtonItem title="Demo App" style="plain" id="tZf-oe-U6H">
+                                                <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </barButtonItem>
+                                            <barButtonItem style="plain" systemItem="flexibleSpace" id="txL-l8-de6"/>
+                                            <barButtonItem title="Logout" id="7H8-cS-Eym">
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <connections>
+                                                    <action selector="logoutAction:" destination="5ro-KL-yfY" id="xfr-Nc-KfM"/>
+                                                </connections>
+                                            </barButtonItem>
+                                        </items>
+                                        <color key="barTintColor" systemColor="systemYellowColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="shadow" value="NO"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </toolbar>
+                                    <searchBar contentMode="redraw" placeholder="Search Post title" translatesAutoresizingMaskIntoConstraints="NO" id="gUH-sp-b89">
+                                        <rect key="frame" x="0.0" y="44" width="414" height="56"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </searchBar>
+                                </subviews>
+                            </stackView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="pfU-Ny-0wn"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="BackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="pfU-Ny-0wn" firstAttribute="trailing" secondItem="jnM-wp-Tl7" secondAttribute="trailing" id="Gcv-xd-nia"/>
+                            <constraint firstItem="pfU-Ny-0wn" firstAttribute="bottom" secondItem="jnM-wp-Tl7" secondAttribute="bottom" id="Kqb-4N-eYH"/>
+                            <constraint firstItem="pfU-Ny-0wn" firstAttribute="trailing" secondItem="vse-cc-Zv8" secondAttribute="trailing" id="Ylc-2P-cRs"/>
+                            <constraint firstItem="vse-cc-Zv8" firstAttribute="leading" secondItem="szs-Bo-2UK" secondAttribute="leading" id="aj3-D6-GU2"/>
+                            <constraint firstItem="pfU-Ny-0wn" firstAttribute="top" secondItem="vse-cc-Zv8" secondAttribute="top" id="g9s-V2-XpZ"/>
+                            <constraint firstItem="jnM-wp-Tl7" firstAttribute="leading" secondItem="szs-Bo-2UK" secondAttribute="leading" id="gTS-hU-KCg"/>
+                            <constraint firstItem="jnM-wp-Tl7" firstAttribute="top" secondItem="vse-cc-Zv8" secondAttribute="bottom" id="gpU-BM-BeT"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" systemItem="favorites" id="1BB-3g-Vrn"/>
+                    <connections>
+                        <outlet property="employeeTableView" destination="jnM-wp-Tl7" id="zfY-ja-eam"/>
+                        <outlet property="searchBar" destination="gUH-sp-b89" id="z5u-nC-K8m"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KaV-y0-Rzs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="613" y="616"/>
+            <point key="canvasLocation" x="611.59420289855075" y="615.40178571428567"/>
         </scene>
-        <!--Posts List View Controller-->
+        <!--Posts-->
         <scene sceneID="MSr-xi-a56">
             <objects>
                 <viewController id="5Nx-8m-g4L" customClass="PostsListViewController" customModule="MediSampleApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -32,30 +82,57 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="vBU-IZ-c4e">
-                                <rect key="frame" x="0.0" y="44" width="414" height="56"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="EiM-IP-OLJ">
+                                <rect key="frame" x="0.0" y="44" width="414" height="100"/>
+                                <subviews>
+                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o19-5U-Y9a">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                        <items>
+                                            <barButtonItem id="jh3-hZ-INZ"/>
+                                            <barButtonItem style="plain" systemItem="flexibleSpace" id="4ro-z6-5za"/>
+                                            <barButtonItem title="Demo App" style="plain" id="Ouf-gZ-FZA">
+                                                <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </barButtonItem>
+                                            <barButtonItem style="plain" systemItem="flexibleSpace" id="V14-gK-0kU"/>
+                                            <barButtonItem title="Logout" id="90B-cb-mMc">
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <connections>
+                                                    <action selector="logoutAction:" destination="5Nx-8m-g4L" id="fqS-qA-way"/>
+                                                </connections>
+                                            </barButtonItem>
+                                        </items>
+                                        <color key="barTintColor" systemColor="systemYellowColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="shadow" value="NO"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </toolbar>
+                                    <searchBar contentMode="redraw" placeholder="Search Post title" translatesAutoresizingMaskIntoConstraints="NO" id="vBU-IZ-c4e">
+                                        <rect key="frame" x="0.0" y="44" width="414" height="56"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </searchBar>
+                                </subviews>
+                            </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Mxe-dP-cxl">
-                                <rect key="frame" x="0.0" y="100" width="414" height="713"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <rect key="frame" x="0.0" y="144" width="414" height="669"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="4Je-4a-cb7"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="BackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="vBU-IZ-c4e" firstAttribute="leading" secondItem="4Je-4a-cb7" secondAttribute="leading" id="eNe-6d-XPP"/>
-                            <constraint firstItem="Mxe-dP-cxl" firstAttribute="top" secondItem="vBU-IZ-c4e" secondAttribute="bottom" id="eed-5p-phq"/>
+                            <constraint firstItem="EiM-IP-OLJ" firstAttribute="trailing" secondItem="4Je-4a-cb7" secondAttribute="trailing" id="Erd-rd-A98"/>
+                            <constraint firstItem="EiM-IP-OLJ" firstAttribute="leading" secondItem="4Je-4a-cb7" secondAttribute="leading" id="ejl-lh-Vhp"/>
                             <constraint firstItem="Mxe-dP-cxl" firstAttribute="leading" secondItem="4Je-4a-cb7" secondAttribute="leading" id="gBl-3B-1Ce"/>
-                            <constraint firstItem="vBU-IZ-c4e" firstAttribute="trailing" secondItem="4Je-4a-cb7" secondAttribute="trailing" id="iOu-6W-67R"/>
-                            <constraint firstItem="vBU-IZ-c4e" firstAttribute="top" secondItem="4Je-4a-cb7" secondAttribute="top" id="iba-Z8-J40"/>
+                            <constraint firstItem="Mxe-dP-cxl" firstAttribute="top" secondItem="EiM-IP-OLJ" secondAttribute="bottom" id="qsf-yp-5zk"/>
+                            <constraint firstItem="EiM-IP-OLJ" firstAttribute="top" secondItem="4Je-4a-cb7" secondAttribute="top" id="r4J-KC-iE7"/>
                             <constraint firstItem="4Je-4a-cb7" firstAttribute="trailing" secondItem="Mxe-dP-cxl" secondAttribute="trailing" id="sDS-f6-Gen"/>
                             <constraint firstItem="Mxe-dP-cxl" firstAttribute="bottom" secondItem="4Je-4a-cb7" secondAttribute="bottom" id="tvb-vf-QXn"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" systemItem="downloads" id="zS3-Ec-3aQ"/>
+                    <tabBarItem key="tabBarItem" title="Posts" image="list" id="zS3-Ec-3aQ"/>
                     <connections>
                         <outlet property="employeeTableView" destination="Mxe-dP-cxl" id="ATb-Lx-13c"/>
+                        <outlet property="searchBar" destination="vBU-IZ-c4e" id="oY1-LN-AOs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YaE-9u-sC1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -70,6 +147,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" systemColor="systemYellowColor"/>
+                        <color key="selectedImageTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
                         <segue destination="5Nx-8m-g4L" kind="relationship" relationship="viewControllers" id="XCA-yh-zh5"/>
@@ -82,8 +161,12 @@
         </scene>
     </scenes>
     <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        <image name="list" width="25" height="25"/>
+        <namedColor name="BackgroundColor">
+            <color red="0.94900000095367432" green="0.94900000095367432" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
