@@ -8,6 +8,18 @@
 import Foundation
 class ApiService{
     static var sharedInstance = ApiService.init()
+    func postLogin(email:String,
+                   password:String,
+                   completion:@escaping (Result<LoginResponseModel, URLError>)-> Void){
+        var model  = LoginResponseModel.init()
+        model.data = LoginModel.init(email:email,password:password)
+        completion(.success(model))
+    }
+    func postLogout(completion:@escaping (Result<LogoutResponseModel, URLError>)-> Void){
+        var model  = LogoutResponseModel.init()
+        model.data = LoginModel.init(email:"",password:"")
+        completion(.success(model))
+    }
     func getPosts(completion:@escaping (Result<[PostModel], URLError>)-> Void){
         let request = APIRequest(method: .get, path: "posts")
         APIClient().perform(request) { (result) in
@@ -15,16 +27,7 @@ class ApiService{
             case .success(let response):
                 if let response = try? response.decode(to: [PostModel].self) {
                     let posts = response.body
-                    completion(.success(posts))
-//                    DispatchQueue.main.async {
-//                        DatabaseManager.shared.deleteAll()
-//                        for post in posts{
-//                            DatabaseManager.shared.insertData(postModel: post)
-//                        }
-//                        let newPost = DatabaseManager.shared.retrieveData()
-//                        print("inserted posts: \(newPost.count )")
-//                    }
-//
+                    completion(.success(posts)) 
                     print("Received posts: \(posts.count )")
                 } else {
                     print("Failed to decode response")
